@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Enter council details</title>
+</head>
+<body>
+
+    <h1>Enter council details</h1>
+
+    <form th:action="@{/add-new-council}" th:object="${council}" method="post">
+
+        <label for="councilName">Council name</label>
+        <input type="text" id="councilName" name="councilName"><br/>
+
+        <label for="councilPhone">Phone number</label>
+        <input type="text" id="councilPhone" name="councilPhone"><br/>
+
+        <label for="councilEmail">Email address</label>
+        <input type="text" id="councilEmail" name="councilEmail"><br/>
+
+        <input type="submit" value="Submit">
+
+    </form>
+
+</body>
+</html>

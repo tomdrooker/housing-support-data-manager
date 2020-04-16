@@ -6,12 +6,6 @@ public class Council {
     private String councilPhone;
     private String councilEmail;
 
-    public Council(String councilName, String councilPhone, String councilEmail) {
-        this.councilName = councilName;
-        this.councilPhone = councilPhone;
-        this.councilEmail = councilEmail;
-    }
-
     public String getCouncilName() {
         return councilName;
     }
