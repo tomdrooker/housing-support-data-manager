@@ -1,6 +1,6 @@
 package com.manager.data.housing.housingsupportmanager.model;
 
-public class UserDetails {
+public class User {
 
     private String username;
     private String password;

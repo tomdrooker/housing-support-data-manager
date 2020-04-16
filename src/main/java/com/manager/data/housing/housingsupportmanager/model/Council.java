@@ -4,6 +4,13 @@ public class Council {
 
     private String councilName;
     private String councilPhone;
+    private String councilEmail;
+
+    public Council(String councilName, String councilPhone, String councilEmail) {
+        this.councilName = councilName;
+        this.councilPhone = councilPhone;
+        this.councilEmail = councilEmail;
+    }
 
     public String getCouncilName() {
         return councilName;
@@ -19,6 +26,14 @@ public class Council {
 
     public void setCouncilPhone(String councilPhone) {
         this.councilPhone = councilPhone;
+    }
+
+    public String getCouncilEmail() {
+        return councilEmail;
+    }
+
+    public void setCouncilEmail(String councilEmail) {
+        this.councilEmail = councilEmail;
     }
 
 }
