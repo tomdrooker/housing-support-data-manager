@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Please confirm council details are correct</title>
+</head>
+<body>
+
+    <h1>Please confirm council details are correct</h1>
+
+    <form th:action="@{/confirm-new-details}" method="post">
+
+        <p th:text="${council.getCouncilName()}"></p>
+        <p th:text="${council.getCouncilPhone()}"></p>
+        <p th:text="${council.getCouncilEmail()}"></p>
+
+        <input type="submit" name="confirmation-page-button" value="Submit">
+        <input type="submit" name="confirmation-page-button" value="Change details">
+
+    </form>
+
+</body>
+</html>
