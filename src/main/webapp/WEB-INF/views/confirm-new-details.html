@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+<head th:insert="fragments/fragments :: head">
     <title>Please confirm council details are correct</title>
 </head>
 <body>
+
+    <header th:insert="fragments/fragments :: header"></header>
 
     <h1>Please confirm council details are correct</h1>
 
@@ -19,6 +20,8 @@
         <input type="submit" name="confirmation-page-button" value="Change details">
 
     </form>
+
+    <footer th:insert="fragments/fragments :: footer"></footer>
 
 </body>
 </html>

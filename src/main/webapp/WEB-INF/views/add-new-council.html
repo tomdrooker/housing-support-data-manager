@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+<head th:insert="fragments/fragments :: head">
     <title>Enter council details</title>
 </head>
 <body>
+
+    <header th:insert="fragments/fragments :: header"></header>
 
     <h1>Enter council details</h1>
 
@@ -23,6 +24,8 @@
         <input type="submit" value="Submit">
 
     </form>
+
+    <footer th:insert="fragments/fragments :: footer"></footer>
 
 </body>
 </html>

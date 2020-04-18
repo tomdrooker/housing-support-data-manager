@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<head th:insert="fragments/fragments :: head">
+    <title>Council details entered</title>
 </head>
 <body>
+
+    <header th:insert="fragments/fragments :: header"></header>
 
     <h1>Council details entered</h1>
 
     <p><a href="home">Go home</a></p>
     <p><a href="add-new-council">Enter another council's details</a></p>
+
+    <footer th:insert="fragments/fragments :: footer"></footer>
 
 </body>
 </html>

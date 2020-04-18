@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+<head th:insert="fragments/fragments :: head">
     <title>Home</title>
 </head>
 <body>
+    <header th:insert="fragments/fragments :: header"></header>
     <h1>Home</h1>
+
+    <p><a href="add-new-council">Add new council</a></p>
+
+    <footer th:insert="fragments/fragments :: footer"></footer>
 </body>
 </html>
