@@ -15,7 +15,7 @@ import java.util.Map;
 public class SignInController {
 
     @GetMapping("/sign-in")
-    public String viewSignIn(Model model) {
+    public String displaySignIn(Model model) {
         model.addAttribute("user", new User());
         return "sign-in";
     }

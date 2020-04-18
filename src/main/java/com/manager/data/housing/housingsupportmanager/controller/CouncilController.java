@@ -2,6 +2,7 @@ package com.manager.data.housing.housingsupportmanager.controller;
 
 import com.manager.data.housing.housingsupportmanager.model.Council;
 import com.manager.data.housing.housingsupportmanager.model.CouncilList;
+import com.manager.data.housing.housingsupportmanager.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +13,17 @@ import org.springframework.web.servlet.view.RedirectView;
 @SessionAttributes("councilList")
 public class CouncilController {
 
+    // Initialise ArrayDeque to hold council details in session
+
+    @ModelAttribute("councilList")
+    public CouncilList createCouncilList() {
+        return new CouncilList();
+    }
+
     // Display pages
 
     @GetMapping("/add-new-council")
-    public String viewAddCouncil(Model model) {
+    public String displayAddCouncil(Model model) {
         model.addAttribute("council", new Council());
         return "add-new-council";
     }
@@ -26,19 +34,12 @@ public class CouncilController {
     }
 
     @GetMapping("/confirm-new-details")
-    public String showForm(Model model,
-                           @ModelAttribute("councilList") CouncilList councilList) {
+    public String displayConfirmDetails(Model model,
+                                        @ModelAttribute("councilList") CouncilList councilList) {
         if (!councilList.isEmpty()) {
             model.addAttribute("council", councilList.peekLast());
         }
         return "confirm-new-details";
-    }
-
-    // Initialise ArrayDeque to hold council details in session
-
-    @ModelAttribute("councilList")
-    public CouncilList createCouncilList() {
-        return new CouncilList();
     }
 
     // Post maps
@@ -54,11 +55,12 @@ public class CouncilController {
     }
 
     @PostMapping("/confirm-new-details")
-    public String confirmationPageRouting(@RequestParam(name = "confirmation-page-button") String button, @ModelAttribute("councilList") CouncilList councilList) {
+    public String confirmationPageRouting(@RequestParam(name = "confirmation-page-button") String button,
+                                          @ModelAttribute("councilList") CouncilList councilList) {
 
         String page = "";
 
-        if (button.equals("Submit")){
+        if (button.equals("Submit")) {
             page = "success";
             Council council = councilList.peekLast();
             String councilName = council.getCouncilName();
@@ -68,5 +70,6 @@ public class CouncilController {
         } // else if button.equals "Change details" go to the edit council bit
         return page;
     }
-
+    
 }
+

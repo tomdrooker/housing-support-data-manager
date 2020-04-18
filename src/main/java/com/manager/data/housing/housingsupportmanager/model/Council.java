@@ -5,6 +5,7 @@ public class Council {
     private String councilName;
     private String councilPhone;
     private String councilEmail;
+    private int councilId;
 
     public String getCouncilName() {
         return councilName;
@@ -30,4 +31,11 @@ public class Council {
         this.councilEmail = councilEmail;
     }
 
+    public int getCouncilId() {
+        return councilId;
+    }
+
+    public void setCouncilId(int councilId) {
+        this.councilId = councilId;
+    }
 }
