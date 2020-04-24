@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head th:insert="fragments/fragments :: head">
+    <title th:text="council.getCouncilName()"></title>
+</head>
+<body>
+
+    <header th:insert="fragments/fragments :: header"></header>
+
+    <h1 th:text="${council.getCouncilName()}"></h1>
+
+    <footer th:insert="fragments/fragments :: footer"></footer>
+
+</body>
+</html>

@@ -7,6 +7,15 @@ public class Council {
     private String councilEmail;
     private int councilId;
 
+    public Council() {};
+
+    public Council(String councilName, String councilPhone, String councilEmail, int councilId) {
+        this.councilName = councilName;
+        this.councilPhone = councilPhone;
+        this.councilEmail = councilEmail;
+        this.councilId = councilId;
+    }
+
     public String getCouncilName() {
         return councilName;
     }

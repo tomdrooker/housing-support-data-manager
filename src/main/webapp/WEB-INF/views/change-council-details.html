@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head th:insert="fragments/fragments :: head">
+    <title>Title</title>
+</head>
+
+<body>
+
+    <header th:insert="fragments/fragments :: header"></header>
+
+    <h1>Change details</h1>
+
+    <form th:action="@{/add-new-council}" th:object="${council}" method="post">
+
+        <label for="councilName">Council name</label>
+        <input type="text" id="councilName" name="councilName" th:value="${council.getCouncilName()}"><br/>
+
+        <label for="councilPhone">Phone number</label>
+        <input type="text" id="councilPhone" name="councilPhone" th:value="${council.getCouncilPhone()}"><br/>
+
+        <label for="councilEmail">Email address</label>
+        <input type="text" id="councilEmail" name="councilEmail" th:value="${council.getCouncilEmail()}"><br/>
+
+        <input type="submit" value="Submit">
+
+    </form>
+
+    <footer th:insert="fragments/fragments :: footer"></footer>
+
+</body>
+
+</html>
