@@ -19,7 +19,7 @@ public class CouncilController {
         return new CouncilList();
     }
 
-    // Display add-new-council page
+    // Display the add-new-council page
 
     @GetMapping("/add-new-council")
     public String displayAddCouncil(Model model) {
