@@ -29,3 +29,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Other files ###
+.DS_Store
+.mvn/wrapper
