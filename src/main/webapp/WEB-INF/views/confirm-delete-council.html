@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head th:insert="fragments/fragments :: head">
+    <title>Are you sure you want to delete this council?</title>
+</head>
+<body>
+
+    <header th:insert="fragments/fragments :: header"></header>
+
+    <h1>Are you sure you want to delete <span th:text="${council.getCouncilName()}"></span>?</h1>
+
+    <form th:action="@{'/view-council/delete-council/' + ${council.getCouncilId()}}" method="post">
+
+        <input type="submit" name="confirm-delete-button" value="Submit">
+        <input type="submit" name="confirm-delete-button" value="Go back">
+
+    </form>
+
+    <footer th:insert="fragments/fragments :: footer"></footer>
+
+</body>
+</html>

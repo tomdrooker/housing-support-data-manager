@@ -13,9 +13,22 @@
 
     <form th:action="@{/sign-in}" th:object="${user}" method="post">
 
+        <div style="color: red;" th:if="${#fields.hasErrors('*')}">
+            <p><strong>There is a problem</strong></p>
+            <ul>
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+            </ul>
+        </div>
+
+        <div style="color: red;" th:if="${#fields.hasErrors('username')}">
+            <span>Enter a valid username</span>
+        </div>
         <label for="username">Enter your username</label>
         <input type="text" id="username" name="username" />
 
+        <div style="color: red;" th:if="${#fields.hasErrors('password')}">
+            <span>Enter a valid password</span>
+        </div>
         <label for="password">Enter your password</label>
         <input type="password" id="password" name="password" />
 

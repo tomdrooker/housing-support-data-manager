@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head th:insert="fragments/fragments :: head">
-    <title>Change council details</title>
+    <title>Edit council details</title>
 </head>
 
 <body>
@@ -11,7 +11,7 @@
 
     <h1>Change details</h1>
 
-    <form th:action="@{/add-new-council}" th:object="${council}" method="post">
+    <form th:action="@{'/view-council/edit-council-details/' + ${council.getCouncilId()}}" th:object="${council}" method="post">
 
         <label for="councilName">Council name</label>
         <input type="text" id="councilName" name="councilName" th:value="${council.getCouncilName()}"><br/>
