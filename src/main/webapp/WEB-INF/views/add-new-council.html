@@ -12,6 +12,17 @@
 
     <form th:action="@{/add-new-council}" th:object="${council}" method="post">
 
+        <div style="color: red;" th:if="${#fields.hasErrors('*')}">
+            <p><strong>There is a problem</strong></p>
+            <ul>
+                <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+            </ul>
+        </div>
+
+
+        <div style="color: red;" th:if="${#fields.hasErrors('councilName')}">
+            <p>Enter a valid council name</p>
+        </div>
         <label for="councilName">Council name</label>
         <input type="text" id="councilName" name="councilName"><br/>
 

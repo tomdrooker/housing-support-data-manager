@@ -1,8 +1,12 @@
 package com.manager.data.housing.housingsupportmanager.model;
 
+import javax.validation.constraints.NotBlank;
+
 public class Council {
 
+    @NotBlank(message="Enter a council name")
     private String councilName;
+
     private String councilPhone;
     private String councilEmail;
     private int councilId;

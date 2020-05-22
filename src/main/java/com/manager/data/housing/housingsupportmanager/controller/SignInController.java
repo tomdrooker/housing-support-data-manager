@@ -1,15 +1,13 @@
 package com.manager.data.housing.housingsupportmanager.controller;
 
-import com.manager.data.housing.housingsupportmanager.model.Council;
-import com.manager.data.housing.housingsupportmanager.model.CouncilList;
 import com.manager.data.housing.housingsupportmanager.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Map;
+
+import javax.validation.Valid;
 
 @Controller
 public class SignInController {
@@ -21,9 +19,16 @@ public class SignInController {
     }
 
     @PostMapping("/sign-in")
-    public String doSignIn(@ModelAttribute(name="user") User user) {
-        System.out.printf("%s, %s", user.getUsername(), user.getPassword());
-        return "home";
+    public String doSignIn(@Valid @ModelAttribute(name="user") User user,
+                           BindingResult bindingResult) {
+
+            if (bindingResult.hasErrors()) {
+                return "sign-in";
+            }
+
+            System.out.printf("%s, %s", user.getUsername(), user.getPassword());
+            return "home";
+
     }
 
 }

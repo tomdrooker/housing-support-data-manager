@@ -10,6 +10,12 @@
 
     <h1 th:text="${council.getCouncilName()}"></h1>
 
+    <p th:text="${council.getCouncilPhone()}"></p>
+    <p th:text="${council.getCouncilEmail()}"></p>
+
+    <a th:href="@{'edit-council-details/' + ${council.getCouncilId()}}">Edit council details</a>
+    <a th:href="@{'confirm-delete-council/' + ${council.getCouncilId()}}">Delete council</a>
+
     <footer th:insert="fragments/fragments :: footer"></footer>
 
 </body>
