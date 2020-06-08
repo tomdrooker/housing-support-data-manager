@@ -10,11 +10,11 @@
 
     <h1>Please confirm council details are correct</h1>
 
-    <form th:action="@{/confirm-new-details}" method="post">
+    <form th:action="@{/confirm-new-details}" method="POST">
 
-        <p th:text="${council.getCouncilName()}"></p>
-        <p th:text="${council.getCouncilPhone()}"></p>
-        <p th:text="${council.getCouncilEmail()}"></p>
+        <p th:text="${council.getName()}"></p>
+        <p th:text="${council.getPhone()}"></p>
+        <p th:text="${council.getEmail()}"></p>
 
         <input type="submit" name="confirmation-page-button" value="Submit">
         <input type="submit" name="confirmation-page-button" value="Change details">

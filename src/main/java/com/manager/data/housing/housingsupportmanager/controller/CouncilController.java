@@ -1,7 +1,9 @@
 package com.manager.data.housing.housingsupportmanager.controller;
 
+import com.manager.data.housing.housingsupportmanager.CouncilService;
 import com.manager.data.housing.housingsupportmanager.model.Council;
 import com.manager.data.housing.housingsupportmanager.model.CouncilList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,9 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 @SessionAttributes("councilList")
 public class CouncilController {
+
+    @Autowired
+    private CouncilService service;
 
     // Initialise CouncilList to hold council details in session
 
@@ -59,13 +64,12 @@ public class CouncilController {
     // Display different view-council page for each link on home page
 
     @GetMapping("/view-council/{id}")
-    public String displayViewCouncil(@PathVariable("id") int id, Model model) {
+    public String displayViewCouncil(@PathVariable("id") Long id, Model model) {
 
-        if (id == 1) {
-            model.addAttribute("council", new Council("Sheffield Council", "0114 2434565", "sheffield@council.co.uk", 1));
-        }
+        model.addAttribute("council", service.get(id));
 
         return "view-council";
+
     }
 
     // Post maps
@@ -77,6 +81,7 @@ public class CouncilController {
             @ModelAttribute Council council,
             @ModelAttribute CouncilList councilList,
             RedirectAttributes attributes) {
+        System.out.println(council.getName());
         councilList.add(council);
         attributes.addFlashAttribute("councilList", councilList);
         return new RedirectView("./confirm-new-details");
@@ -91,11 +96,8 @@ public class CouncilController {
         String page = "";
 
         if (button.equals("Submit")) {
+            service.save(council);
             page = "success";
-            String councilName = council.getCouncilName();
-            String councilPhone = council.getCouncilPhone();
-            String councilEmail = council.getCouncilEmail();
-            System.out.printf("%s, %s, %s", councilName, councilPhone, councilEmail);
         }
 
         else if (button.equals("Change details")) {

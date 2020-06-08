@@ -1,50 +1,107 @@
 package com.manager.data.housing.housingsupportmanager.model;
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+
+@Entity(name = "councils")
 public class Council {
 
-    private String councilName;
-    private String councilPhone;
-    private String councilEmail;
-    private int councilId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String address;
+    private String email;
+    private String phone;
+    private String advice;
+    private String dhp;
+    private String lwa;
+    private String hours;
+    @Lob
+    @Type(type="org.hibernate.type.BinaryType")
+    private byte[] photo;
 
     public Council() {};
 
-    public Council(String councilName, String councilPhone, String councilEmail, int councilId) {
-        this.councilName = councilName;
-        this.councilPhone = councilPhone;
-        this.councilEmail = councilEmail;
-        this.councilId = councilId;
+    public Long getId() {
+        return id;
     }
 
-    public String getCouncilName() {
-        return councilName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setCouncilName(String councilName) {
-        this.councilName = councilName;
+    public String getName() {
+        return name;
     }
 
-    public String getCouncilPhone() {
-        return councilPhone;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setCouncilPhone(String councilPhone) {
-        this.councilPhone = councilPhone;
+    public String getAddress() {
+        return address;
     }
 
-    public String getCouncilEmail() {
-        return councilEmail;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public void setCouncilEmail(String councilEmail) {
-        this.councilEmail = councilEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public int getCouncilId() {
-        return councilId;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setCouncilId(int councilId) {
-        this.councilId = councilId;
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAdvice() {
+        return advice;
+    }
+
+    public void setAdvice(String advice) {
+        this.advice = advice;
+    }
+
+    public String getDhp() {
+        return dhp;
+    }
+
+    public void setDhp(String dhp) {
+        this.dhp = dhp;
+    }
+
+    public String getLwa() {
+        return lwa;
+    }
+
+    public void setLwa(String lwa) {
+        this.lwa = lwa;
+    }
+
+    public String getHours() {
+        return hours;
+    }
+
+    public void setHours(String hours) {
+        this.hours = hours;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 }
