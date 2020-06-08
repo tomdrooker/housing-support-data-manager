@@ -16,7 +16,7 @@
     </div>
 
     <div th:if="${action.equals('delete')}">
-        <h1><span th:text="${council.getCouncilName()}"></span> has been deleted</h1>
+        <h1><span th:text="${council.getName()}"></span> has been deleted</h1>
 
         <p><a href="../../home">Go home</a></p>
     </div>

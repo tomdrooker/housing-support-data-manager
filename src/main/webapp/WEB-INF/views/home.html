@@ -11,11 +11,14 @@
 
     <p><a href="add-new-council">Add new council</a></p>
 
-    <div th:each="council : ${councils}">
-        <a th:href="@{'view-council/' + ${council.getCouncilId()}}">
-            <span th:text="${council.getCouncilName()} "></span> <span th:text="${council.getCouncilPhone()} "></span> <span th:text="${council.getCouncilEmail()} "></span>
-        </a>
-    </div>
+    <table>
+        <tr th:each="council : ${councils}">
+            <td th:text="${council.getName()} "></td>
+            <td th:text="${council.getPhone()} "></td>
+            <td th:text="${council.getEmail()} "></td>
+            <td><a th:href="@{'view-council/' + ${council.getId()}}">More information</a></td>
+        </tr>
+    </table>
 
     <footer th:insert="fragments/fragments :: footer"></footer>
 

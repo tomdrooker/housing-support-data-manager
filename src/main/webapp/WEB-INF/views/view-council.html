@@ -8,13 +8,13 @@
 
     <header th:insert="fragments/fragments :: header"></header>
 
-    <h1 th:text="${council.getCouncilName()}"></h1>
+    <h1 th:text="${council.getName()}"></h1>
 
-    <p th:text="${council.getCouncilPhone()}"></p>
-    <p th:text="${council.getCouncilEmail()}"></p>
+    <p th:text="${council.getPhone()}"></p>
+    <p th:text="${council.getEmail()}"></p>
 
-    <a th:href="@{'edit-council-details/' + ${council.getCouncilId()}}">Edit council details</a>
-    <a th:href="@{'confirm-delete-council/' + ${council.getCouncilId()}}">Delete council</a>
+    <a th:href="@{'edit-council-details/' + ${council.getId()}}">Edit council details</a>
+    <a th:href="@{'confirm-delete-council/' + ${council.getId()}}">Delete council</a>
 
     <footer th:insert="fragments/fragments :: footer"></footer>
 

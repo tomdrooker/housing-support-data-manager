@@ -20,17 +20,17 @@
         </div>
 
 
-        <div style="color: red;" th:if="${#fields.hasErrors('councilName')}">
+        <div style="color: red;" th:if="${#fields.hasErrors('name')}">
             <p>Enter a valid council name</p>
         </div>
-        <label for="councilName">Council name</label>
-        <input type="text" id="councilName" name="councilName"><br/>
+        <label for="name">Council name</label>
+        <input type="text" id="name" name="name"><br/>
 
-        <label for="councilPhone">Phone number</label>
-        <input type="text" id="councilPhone" name="councilPhone"><br/>
+        <label for="phone">Phone number</label>
+        <input type="text" id="phone" name="phone"><br/>
 
-        <label for="councilEmail">Email address</label>
-        <input type="text" id="councilEmail" name="councilEmail"><br/>
+        <label for="email">Email address</label>
+        <input type="text" id="email" name="email"><br/>
 
         <input type="submit" value="Submit">
 
