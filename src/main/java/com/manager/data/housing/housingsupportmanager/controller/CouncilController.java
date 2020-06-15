@@ -38,7 +38,9 @@ public class CouncilController {
     // Display success page when council added successfully
 
     @GetMapping("/success")
-    public String displaySuccess() {
+    public String displaySuccess(Model model,
+                                 @ModelAttribute CouncilList councilList) {
+        model.addAttribute("council", councilList.peekLast());
         return "success";
     }
 
@@ -68,11 +70,9 @@ public class CouncilController {
 
     @GetMapping("/view-council/edit-council-details/{id}")
     public String displayEditCouncil(Model model,
-                                     @PathVariable("id") int id) {
+                                     @PathVariable("id") Long id) {
 
-        if (id == 1) {
-            model.addAttribute("council", new Council());
-        }
+        model.addAttribute("council", service.get(id));
 
         return "edit-council-details";
     }
@@ -91,17 +91,14 @@ public class CouncilController {
     //Delete council
 
     @GetMapping("/view-council/confirm-delete-council/{id}")
-    public String displayConfirmDeleteCouncil(@PathVariable("id") int id,
+    public String displayConfirmDeleteCouncil(@PathVariable("id") Long id,
                                               Model model,
                                               @ModelAttribute CouncilList councilList,
-                                              @ModelAttribute Council council,
                                               RedirectAttributes attributes) {
-
-        if (id == 1) {
-            model.addAttribute("council", new Council());
-            councilList.add(council);
-            attributes.addFlashAttribute("councilList", councilList);
-        }
+        Council council = service.get(id);
+        model.addAttribute("council", council);
+        councilList.add(council);
+        attributes.addFlashAttribute("councilList", councilList);
 
         return "confirm-delete-council";
     }
@@ -164,16 +161,15 @@ public class CouncilController {
     @PostMapping("/view-council/delete-council/{id}")
     public String deletePageRouting(@PathVariable("id") Long id,
                                     @RequestParam(name = "confirm-delete-button") String button,
-                                    @RequestHeader(value = "referer", required = false) String referer,
+                                    @ModelAttribute CouncilList councilList,
                                     Model model) {
 
         String page = "";
-        //should be able to get entry from database using id from url here eventually
-        model.addAttribute("council", new Council());
 
         if (button.equals("Submit")) {
             service.delete(id);
             model.addAttribute("action", "delete");
+            model.addAttribute("council", councilList.peekLast());
             page = "success";
         }
 
