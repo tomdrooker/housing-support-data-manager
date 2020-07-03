@@ -8,9 +8,9 @@
 
     <header th:insert="fragments/fragments :: header"></header>
 
-    <h1>Are you sure you want to delete <span th:text="${council.getCouncilName()}"></span>?</h1>
+    <h1>Are you sure you want to delete <span th:text="${council.getName()}"></span>?</h1>
 
-    <form th:action="@{'/view-council/delete-council/' + ${council.getCouncilId()}}" method="post">
+    <form th:action="@{'/view-council/delete-council/' + ${council.getId()}}" method="post">
 
         <input type="submit" name="confirm-delete-button" value="Submit">
         <input type="submit" name="confirm-delete-button" value="Go back">

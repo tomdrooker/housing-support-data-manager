@@ -1,7 +1,9 @@
 package com.manager.data.housing.housingsupportmanager.controller;
 
+import com.manager.data.housing.housingsupportmanager.CouncilService;
 import com.manager.data.housing.housingsupportmanager.model.Council;
 import com.manager.data.housing.housingsupportmanager.model.CouncilList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,9 @@ import javax.validation.Valid;
 @Controller
 @SessionAttributes("councilList")
 public class CouncilController {
+
+    @Autowired
+    private CouncilService service;
 
     // Initialise CouncilList to hold council details in session
 
@@ -33,7 +38,9 @@ public class CouncilController {
     // Display success page when council added successfully
 
     @GetMapping("/success")
-    public String displaySuccess() {
+    public String displaySuccess(Model model,
+                                 @ModelAttribute CouncilList councilList) {
+        model.addAttribute("council", councilList.peekLast());
         return "success";
     }
 
@@ -63,11 +70,9 @@ public class CouncilController {
 
     @GetMapping("/view-council/edit-council-details/{id}")
     public String displayEditCouncil(Model model,
-                                     @PathVariable("id") int id) {
+                                     @PathVariable("id") Long id) {
 
-        if (id == 1) {
-            model.addAttribute("council", new Council("Sheffield Council", "0114 2434565", "sheffield@council.co.uk", 1));
-        }
+        model.addAttribute("council", service.get(id));
 
         return "edit-council-details";
     }
@@ -75,30 +80,25 @@ public class CouncilController {
     // Display different view-council page for each link on home page
 
     @GetMapping("/view-council/{id}")
-    public String displayViewCouncil(@PathVariable("id") int id,
-                                     Model model) {
+    public String displayViewCouncil(@PathVariable("id") Long id, Model model) {
 
-        if (id == 1) {
-            model.addAttribute("council", new Council("Sheffield Council", "0114 2434565", "sheffield@council.co.uk", 1));
-        }
+        model.addAttribute("council", service.get(id));
 
         return "view-council";
+
     }
 
     //Delete council
 
     @GetMapping("/view-council/confirm-delete-council/{id}")
-    public String displayConfirmDeleteCouncil(@PathVariable("id") int id,
+    public String displayConfirmDeleteCouncil(@PathVariable("id") Long id,
                                               Model model,
                                               @ModelAttribute CouncilList councilList,
-                                              @ModelAttribute Council council,
                                               RedirectAttributes attributes) {
-
-        if (id == 1) {
-            model.addAttribute("council", new Council("Sheffield Council", "0114 2434565", "sheffield@council.co.uk", 1));
-            councilList.add(council);
-            attributes.addFlashAttribute("councilList", councilList);
-        }
+        Council council = service.get(id);
+        model.addAttribute("council", council);
+        councilList.add(council);
+        attributes.addFlashAttribute("councilList", councilList);
 
         return "confirm-delete-council";
     }
@@ -134,12 +134,9 @@ public class CouncilController {
         String page = "";
 
         if (button.equals("Submit")) {
+            service.save(council);
             model.addAttribute("action", "add");
             page = "success";
-            String councilName = council.getCouncilName();
-            String councilPhone = council.getCouncilPhone();
-            String councilEmail = council.getCouncilEmail();
-            System.out.printf("%s, %s, %s", councilName, councilPhone, councilEmail);
         }
 
         else if (button.equals("Change details")) {
@@ -162,19 +159,18 @@ public class CouncilController {
     }
 
     @PostMapping("/view-council/delete-council/{id}")
-    public String deletePageRouting(@PathVariable("id") int id,
+    public String deletePageRouting(@PathVariable("id") Long id,
                                     @RequestParam(name = "confirm-delete-button") String button,
-                                    @RequestHeader(value = "referer", required = false) String referer,
+                                    @ModelAttribute CouncilList councilList,
                                     Model model) {
 
         String page = "";
-        //should be able to get entry from database using id from url here eventually
-        model.addAttribute("council", new Council("Sheffield Council", "0114 2434565", "sheffield@council.co.uk", 1));
 
         if (button.equals("Submit")) {
+            service.delete(id);
             model.addAttribute("action", "delete");
+            model.addAttribute("council", councilList.peekLast());
             page = "success";
-            System.out.println(id);
         }
 
         else if (button.equals("Go back")) {

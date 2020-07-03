@@ -26,7 +26,6 @@ public class SignInController {
                 return "sign-in";
             }
 
-            System.out.printf("%s, %s", user.getUsername(), user.getPassword());
             return "home";
 
     }
