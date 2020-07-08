@@ -1,7 +1,7 @@
 package com.manager.data.housing.housingsupportmanager.controller;
 
 import com.manager.data.housing.housingsupportmanager.AppConfig;
-import com.manager.data.housing.housingsupportmanager.CouncilService;
+import com.manager.data.housing.housingsupportmanager.service.CouncilService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
