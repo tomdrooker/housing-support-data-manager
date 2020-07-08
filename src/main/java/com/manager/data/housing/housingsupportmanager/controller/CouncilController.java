@@ -1,6 +1,6 @@
 package com.manager.data.housing.housingsupportmanager.controller;
 
-import com.manager.data.housing.housingsupportmanager.CouncilService;
+import com.manager.data.housing.housingsupportmanager.service.CouncilService;
 import com.manager.data.housing.housingsupportmanager.model.Council;
 import com.manager.data.housing.housingsupportmanager.model.CouncilList;
 import org.springframework.beans.factory.annotation.Autowired;
