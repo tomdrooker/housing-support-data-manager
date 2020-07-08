@@ -5,7 +5,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-@Entity(name = "councils")
+@Entity(name = "council")
 public class Council {
 
     @Id
