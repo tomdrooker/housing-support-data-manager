@@ -35,7 +35,7 @@ public class CouncilController {
         return "add-new-council";
     }
 
-    // Display success page when council added successfully
+    // Display success page when council added successfully - requires an action attribute - how can this be passed in a test?
 
     @GetMapping("/success")
     public String displaySuccess(Model model,
@@ -45,6 +45,7 @@ public class CouncilController {
     }
 
     // Retrieve council details that have just been added from CouncilList and send them for use on confirm-new-details page
+    // Retrieves info from placeNewCouncilIntoSession
 
     @GetMapping("/confirm-new-details")
     public String displayConfirmDetails(Model model,
@@ -112,7 +113,6 @@ public class CouncilController {
                                              BindingResult bindingResult,
                                              @ModelAttribute CouncilList councilList,
                                              RedirectAttributes attributes) {
-
         if (bindingResult.hasErrors()) {
             return "add-new-council";
         }
@@ -122,11 +122,10 @@ public class CouncilController {
             attributes.addFlashAttribute("councilList", councilList);
             return "confirm-new-details";
         }
-
     }
 
     @PostMapping("/confirm-new-details")
-    public String confirmationPageRouting(@RequestParam(name = "confirmation-page-button") String button,
+    public String routeConfirmationPage(@RequestParam(name = "confirmation-page-button") String button,
                                           @ModelAttribute("councilList") CouncilList councilList,
                                           Model model) {
 
@@ -159,7 +158,7 @@ public class CouncilController {
     }
 
     @PostMapping("/view-council/delete-council/{id}")
-    public String deletePageRouting(@PathVariable("id") Long id,
+    public String routeDeletePage(@PathVariable("id") Long id,
                                     @RequestParam(name = "confirm-delete-button") String button,
                                     @ModelAttribute CouncilList councilList,
                                     Model model) {

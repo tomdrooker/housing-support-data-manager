@@ -5,11 +5,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring5.templateresource.SpringResourceTemplateResource;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @Configuration
 public class AppConfig {
@@ -27,6 +27,8 @@ public class AppConfig {
         templateResolver.setSuffix(".html");
         return templateResolver;
     }
+
+
 
     @Bean
     public SpringTemplateEngine templateEngine() {
