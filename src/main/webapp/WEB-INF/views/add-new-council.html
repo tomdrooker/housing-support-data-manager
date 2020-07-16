@@ -24,13 +24,13 @@
             <p>Enter a valid council name</p>
         </div>
         <label for="name">Council name</label>
-        <input type="text" id="name" name="name"><br/>
+        <input type="text" id="name" name="name" th:field="*{name}"><br/>
 
         <label for="phone">Phone number</label>
-        <input type="text" id="phone" name="phone"><br/>
+        <input type="text" id="phone" name="phone" th:field="*{phone}"><br/>
 
         <label for="email">Email address</label>
-        <input type="text" id="email" name="email"><br/>
+        <input type="text" id="email" name="email" th:field="*{email}"><br/>
 
         <input type="submit" value="Submit">
 

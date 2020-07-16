@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -31,16 +32,21 @@ public class CouncilController {
 
     @GetMapping("/add-new-council")
     public String displayAddCouncil(Model model) {
-        model.addAttribute("council", new Council());
+        if (!model.containsAttribute("council")) {
+            model.addAttribute("council", new Council());
+        }
+
         return "add-new-council";
     }
 
-    // Display success page when council added successfully - requires an action attribute - how can this be passed in a test?
+    // Display success page when council added successfully - requires an action attribute
 
     @GetMapping("/success")
     public String displaySuccess(Model model,
                                  @ModelAttribute CouncilList councilList) {
-        model.addAttribute("council", councilList.peekLast());
+        if (!councilList.isEmpty()) {
+            model.addAttribute("council", councilList.peekLast());
+        }
         return "success";
     }
 
@@ -114,7 +120,9 @@ public class CouncilController {
                                              @ModelAttribute CouncilList councilList,
                                              RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) {
-            return "add-new-council";
+            attributes.addFlashAttribute("org.springframework.validation.BindingResult.council", bindingResult);
+            attributes.addFlashAttribute("council", council);
+            return "redirect:/add-new-council";
         }
 
         else {
@@ -135,6 +143,7 @@ public class CouncilController {
         if (button.equals("Submit")) {
             service.save(council);
             model.addAttribute("action", "add");
+            model.addAttribute("council", council);
             page = "success";
         }
 

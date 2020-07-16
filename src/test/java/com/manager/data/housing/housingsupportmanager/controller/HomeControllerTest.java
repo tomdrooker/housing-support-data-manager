@@ -1,18 +1,18 @@
 package com.manager.data.housing.housingsupportmanager.controller;
 
-import com.manager.data.housing.housingsupportmanager.AppConfig;
 import com.manager.data.housing.housingsupportmanager.service.CouncilService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest({ AppConfig.class, HomeController.class})
-
+@SpringBootTest
+@AutoConfigureMockMvc
 class HomeControllerTest {
 
     @Autowired
@@ -27,6 +27,5 @@ class HomeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("councils"))
                 .andExpect(view().name("home"));
-
     }
 }

@@ -2,20 +2,20 @@ package com.manager.data.housing.housingsupportmanager.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import com.manager.data.housing.housingsupportmanager.AppConfig;
 import com.manager.data.housing.housingsupportmanager.service.CouncilService;
 import com.manager.data.housing.housingsupportmanager.model.Council;
 import com.manager.data.housing.housingsupportmanager.model.CouncilList;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.web.servlet.FlashMap;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-@WebMvcTest({ AppConfig.class, CouncilController.class })
+@SpringBootTest
+@AutoConfigureMockMvc
 class CouncilControllerTest {
 
     @Autowired
@@ -24,8 +24,7 @@ class CouncilControllerTest {
     @MockBean
     CouncilService councilService;
 
-    @MockBean
-    CouncilList councilList;
+    CouncilList councilList = new CouncilList();
 
     @Test
     void testDisplayAddCouncil() throws Exception {
@@ -37,22 +36,27 @@ class CouncilControllerTest {
 
     @Test
     void testDisplaySuccess() throws Exception {
-        mockMvc.perform(get("/success"))
-                .andExpect(status().isOk());
-    }
+        Council council = new Council();
+        council.setName("Sheffield City Council");
 
-    // Requires session attributes to be sent from the
+        mockMvc.perform(get("/success")
+                .requestAttr("action", "add")
+                .flashAttr("council", council))
+                    .andExpect(status().isOk())
+                    .andExpect(model().attributeExists("council"))
+                    .andExpect(view().name("success"));
+        }
+
     @Test
     void testDisplayConfirmDetails() throws Exception {
-        FlashMap flashMap = mockMvc.perform(post("/add-new-council")
-                .param("name", "Sheffield City Council"))
-                .andReturn().getFlashMap();
+        Council council = new Council();
+        council.setName("Sheffield City Council");
 
         mockMvc.perform(get("/confirm-new-details")
-                .sessionAttrs(flashMap))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("council"))
-                .andExpect(view().name("confirm-new-details"));
+                .flashAttr("council", council))
+                    .andExpect(status().isOk())
+                    .andExpect(model().attributeExists("council"))
+                    .andExpect(view().name("confirm-new-details"));
     }
 
     @Test
@@ -86,12 +90,11 @@ class CouncilControllerTest {
                 .andExpect(view().name("confirm-delete-council"));
     }
 
-
     //Test for successful validation
     @Test
     void testPlaceNewCouncilIntoSession() throws Exception {
         mockMvc.perform(post("/add-new-council")
-            .param("name", "Sheffield City Council"))
+                .param("name", "Sheffield City Council"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("councilList"))
                 .andExpect(view().name("confirm-new-details"));
@@ -100,16 +103,21 @@ class CouncilControllerTest {
     //Test for unsuccessful validation
     @Test
     void testPlaceNewCouncilIntoSessionInvalid() throws Exception {
-        mockMvc.perform(post("/add-new-council"))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeHasErrors("name"))
-                .andExpect(model().attributeHasFieldErrors("name"))
-                .andExpect(view().name("add-new-council"));
+        mockMvc.perform(post("/add-new-council")
+                .param("name", ""))
+                    .andExpect(status().is3xxRedirection())
+                    .andExpect(redirectedUrl("/add-new-council"));
     }
 
     @Test
     void testRouteConfirmationPageForSuccess() throws Exception {
+        Council council = new Council();
+        council.setName("Sheffield City Council");
+
+        councilList.add(council);
+
         mockMvc.perform(post("/confirm-new-details")
+                .sessionAttr("councilList", councilList)
                 .param("confirmation-page-button", "Submit"))
                     .andExpect(status().isOk())
                     .andExpect(model().attributeExists("action"))
@@ -122,9 +130,11 @@ class CouncilControllerTest {
         Council council = new Council();
         council.setName("Sheffield City Council");
 
+        councilList.add(council);
+
         mockMvc.perform(post("/confirm-new-details")
-                .param("confirmation-page-button", "Change details"))
-//                .content(objectMapper.writeValueAsString(council)))
+                .param("confirmation-page-button", "Change details")
+                .sessionAttr("councilList", councilList))
                     .andExpect(status().isOk())
                     .andExpect(model().attributeExists("council"))
                     .andExpect(view().name("change-council-details"));
@@ -140,20 +150,19 @@ class CouncilControllerTest {
 
     @Test
     void testRouteDeletePageForSuccess() throws Exception {
-
         Council council = new Council();
         council.setName("Sheffield City Council");
 
-        given(councilList.peekLast()).willReturn(council);
+        councilList.add(council);
 
         mockMvc.perform(post("/view-council/delete-council/{id}", 79L)
+                .sessionAttr("councilList", councilList)
                 .param("confirm-delete-button", "Submit"))
                     .andExpect(status().isOk());
     }
 
     @Test
     void testRouteDeletePageForGoBack() throws Exception {
-
         mockMvc.perform(post("/view-council/delete-council/{id}", 79L)
                     .param("confirm-delete-button", "Go back"))
                         .andExpect(status().is3xxRedirection())
