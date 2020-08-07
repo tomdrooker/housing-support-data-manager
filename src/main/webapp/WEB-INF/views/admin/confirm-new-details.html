@@ -10,7 +10,7 @@
 
     <h1>Please confirm council details are correct</h1>
 
-    <form th:action="@{/confirm-new-details}" method="post">
+    <form th:action="@{/admin/confirm-new-details}" method="post">
 
         <p th:text="${council.getName()}"></p>
         <p th:text="${council.getPhone()}"></p>

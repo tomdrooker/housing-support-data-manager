@@ -105,8 +105,8 @@ class CouncilControllerTest {
     void testPlaceNewCouncilIntoSessionInvalid() throws Exception {
         mockMvc.perform(post("/add-new-council")
                 .param("name", ""))
-                    .andExpect(status().is3xxRedirection())
-                    .andExpect(redirectedUrl("/add-new-council"));
+                    .andExpect(status().isOk())
+                    .andExpect(view().name("/add-new-council"));
     }
 
     @Test

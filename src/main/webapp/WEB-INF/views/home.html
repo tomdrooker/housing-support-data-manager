@@ -1,27 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<main lang="en">
 <head th:insert="fragments/fragments :: head">
-    <title>Home</title>
+    <title>Choose your council</title>
 </head>
-<body>
 
-    <header th:insert="fragments/fragments :: header"></header>
-    <h1>Home</h1>
+    <body class="govuk-template__body">
+        <header th:insert="fragments/fragments :: header"></header>
+        <main class="govuk-main-wrapper" id="main-content" role="main" style="margin-bottom: 200px">
+            <div class="govuk-width-container">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
 
-    <p><a href="add-new-council">Add new council</a></p>
+                        <h1 class="govuk-heading-xl">Choose your council</h1>
 
-    <table>
-        <tr th:each="council : ${councils}">
-            <td th:text="${council.getName()} "></td>
-            <td th:text="${council.getPhone()} "></td>
-            <td th:text="${council.getEmail()} "></td>
-            <td><a th:href="@{'view-council/' + ${council.getId()}}">More information</a></td>
-        </tr>
-    </table>
+                        <p class="govuk-body">Select a council name to view more information about the housing support services it provides. If you do not know your council, you can <a href="https://www.gov.uk/find-local-council" target="blank">find it using your postcode</a>.</p>
+
+                        <table class="govuk-table">
+                            <tr th:each="council : ${councils}">
+                                <td><a th:href="@{'view-council/' + ${council.getId()}}"><span th:text="${council.getName()}"></span></a></td>
+                                <td th:text="${council.getPhone()} "></td>
+                                <td th:text="${council.getEmail()} "></td>
+                            </tr>
+                        </table>
+
+                        <p class="govuk-body"><a href="admin/add-new-council">Add new council</a></p>
+
+                    </div>
+                </div>
+            </main>
+        </div>
 
     <footer th:insert="fragments/fragments :: footer"></footer>
 
-</body>
+    </body>
+
 </html>
 

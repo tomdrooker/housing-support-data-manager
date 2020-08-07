@@ -1,4 +1,4 @@
-package com.manager.data.housing.housingsupportmanager;
+package com.manager.data.housing.housingsupportmanager.service;
 
 import com.manager.data.housing.housingsupportmanager.model.Council;
 import com.manager.data.housing.housingsupportmanager.service.CouncilService;

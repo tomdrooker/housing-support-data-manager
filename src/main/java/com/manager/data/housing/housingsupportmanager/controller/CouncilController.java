@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -30,74 +29,69 @@ public class CouncilController {
 
     // Display the add-new-council page
 
-    @GetMapping("/add-new-council")
+    @GetMapping({"admin/add-new-council", "/add-new-council"})
     public String displayAddCouncil(Model model) {
         if (!model.containsAttribute("council")) {
             model.addAttribute("council", new Council());
         }
 
-        return "add-new-council";
+        return "admin/add-new-council";
     }
 
     // Display success page when council added successfully - requires an action attribute
 
-    @GetMapping("/success")
+    @GetMapping("admin/success")
     public String displaySuccess(Model model,
                                  @ModelAttribute CouncilList councilList) {
         if (!councilList.isEmpty()) {
             model.addAttribute("council", councilList.peekLast());
         }
-        return "success";
+        return "admin/success";
     }
 
     // Retrieve council details that have just been added from CouncilList and send them for use on confirm-new-details page
     // Retrieves info from placeNewCouncilIntoSession
 
-    @GetMapping("/confirm-new-details")
+    @GetMapping("admin/confirm-new-details")
     public String displayConfirmDetails(Model model,
                                         @ModelAttribute CouncilList councilList) {
         if (!councilList.isEmpty()) {
             model.addAttribute("council", councilList.peekLast());
         }
-        return "confirm-new-details";
+        return "admin/confirm-new-details";
     }
 
     // Retrieve council details that have just been added and send them to the confirm-new-details page
 
-    @GetMapping("/change-council-details")
+    @GetMapping("/admin/change-council-details")
     public String displayChangeDetails(Model model,
                                        @ModelAttribute CouncilList councilList) {
         if (!councilList.isEmpty()) {
             model.addAttribute("council", councilList.peekLast());
         }
-        return "confirm-new-details";
+        return "admin/confirm-new-details";
     }
 
     // Retrieve council details from an existing record in the database and display them on the edit-details form
 
-    @GetMapping("/view-council/edit-council-details/{id}")
+    @GetMapping("admin/edit-council-details/{id}")
     public String displayEditCouncil(Model model,
                                      @PathVariable("id") Long id) {
-
         model.addAttribute("council", service.get(id));
-
-        return "edit-council-details";
+        return "admin/edit-council-details";
     }
 
     // Display different view-council page for each link on home page
 
     @GetMapping("/view-council/{id}")
     public String displayViewCouncil(@PathVariable("id") Long id, Model model) {
-
         model.addAttribute("council", service.get(id));
-
         return "view-council";
-
     }
 
     //Delete council
 
-    @GetMapping("/view-council/confirm-delete-council/{id}")
+    @GetMapping("/admin/confirm-delete-council/{id}")
     public String displayConfirmDeleteCouncil(@PathVariable("id") Long id,
                                               Model model,
                                               @ModelAttribute CouncilList councilList,
@@ -106,8 +100,7 @@ public class CouncilController {
         model.addAttribute("council", council);
         councilList.add(council);
         attributes.addFlashAttribute("councilList", councilList);
-
-        return "confirm-delete-council";
+        return "admin/confirm-delete-council";
     }
 
     // Post maps
@@ -120,19 +113,18 @@ public class CouncilController {
                                              @ModelAttribute CouncilList councilList,
                                              RedirectAttributes attributes) {
         if (bindingResult.hasErrors()) {
-            attributes.addFlashAttribute("org.springframework.validation.BindingResult.council", bindingResult);
             attributes.addFlashAttribute("council", council);
-            return "redirect:/add-new-council";
+            return "admin/add-new-council";
         }
 
         else {
             councilList.add(council);
             attributes.addFlashAttribute("councilList", councilList);
-            return "confirm-new-details";
+            return "admin/confirm-new-details";
         }
     }
 
-    @PostMapping("/confirm-new-details")
+    @PostMapping("/admin/confirm-new-details")
     public String routeConfirmationPage(@RequestParam(name = "confirmation-page-button") String button,
                                           @ModelAttribute("councilList") CouncilList councilList,
                                           Model model) {
@@ -144,26 +136,26 @@ public class CouncilController {
             service.save(council);
             model.addAttribute("action", "add");
             model.addAttribute("council", council);
-            page = "success";
+            page = "admin/success";
         }
 
         else if (button.equals("Change details")) {
             model.addAttribute("council", council);
-            page = "change-council-details";
+            page = "admin/change-council-details";
         }
 
         return page;
 
     }
 
-    @PostMapping("/view-council/edit-council-details/{id}")
+    @PostMapping("/edit-council-details/{id}")
     public RedirectView handleEditCouncilDetails(@PathVariable("id") int id,
                                            @ModelAttribute Council council,
                                            @ModelAttribute CouncilList councilList,
                                            RedirectAttributes attributes) {
         councilList.add(council);
         attributes.addFlashAttribute("councilList", councilList);
-        return new RedirectView("./../../confirm-new-details");
+        return new RedirectView("./../admin/confirm-new-details");
     }
 
     @PostMapping("/view-council/delete-council/{id}")
@@ -178,7 +170,7 @@ public class CouncilController {
             service.delete(id);
             model.addAttribute("action", "delete");
             model.addAttribute("council", councilList.peekLast());
-            page = "success";
+            page = "admin/success";
         }
 
         else if (button.equals("Go back")) {

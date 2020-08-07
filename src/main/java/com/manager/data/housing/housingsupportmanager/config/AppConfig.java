@@ -1,4 +1,4 @@
-package com.manager.data.housing.housingsupportmanager;
+package com.manager.data.housing.housingsupportmanager.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -8,8 +8,6 @@ import org.springframework.web.servlet.ViewResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
-import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 @Configuration
 public class AppConfig {
@@ -27,8 +25,6 @@ public class AppConfig {
         templateResolver.setSuffix(".html");
         return templateResolver;
     }
-
-
 
     @Bean
     public SpringTemplateEngine templateEngine() {

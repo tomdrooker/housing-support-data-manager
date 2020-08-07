@@ -4,17 +4,30 @@
 <head th:insert="fragments/fragments :: head">
     <title th:text="council.getCouncilName()"></title>
 </head>
-<body>
+
+<body class="govuk-template__body">
 
     <header th:insert="fragments/fragments :: header"></header>
 
-    <h1 th:text="${council.getName()}"></h1>
+    <div class="govuk-width-container">
+        <main class="govuk-main-wrapper" id="main-content" role="main">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+
+                    <h1>Get help with a housing problem from <span th:text="${council.getName()}"></span></h1>
 
     <p th:text="${council.getPhone()}"></p>
     <p th:text="${council.getEmail()}"></p>
 
-    <a th:href="@{'edit-council-details/' + ${council.getId()}}">Edit council details</a>
-    <a th:href="@{'confirm-delete-council/' + ${council.getId()}}">Delete council</a>
+    <a th:href="@{'/admin/edit-council-details/' + ${council.getId()}}">Edit council details</a>
+    <a th:href="@{'/admin/confirm-delete-council/' + ${council.getId()}}">Delete council</a>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
 
     <footer th:insert="fragments/fragments :: footer"></footer>
 
