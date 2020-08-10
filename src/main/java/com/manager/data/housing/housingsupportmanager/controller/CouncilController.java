@@ -1,5 +1,6 @@
 package com.manager.data.housing.housingsupportmanager.controller;
 
+import com.manager.data.housing.housingsupportmanager.FlashMessage;
 import com.manager.data.housing.housingsupportmanager.service.CouncilService;
 import com.manager.data.housing.housingsupportmanager.model.Council;
 import com.manager.data.housing.housingsupportmanager.model.CouncilList;
@@ -29,7 +30,7 @@ public class CouncilController {
 
     // Display the add-new-council page
 
-    @GetMapping({"admin/add-new-council", "/add-new-council"})
+    @GetMapping({"admin/add-new-council", "add-new-council"})
     public String displayAddCouncil(Model model) {
         if (!model.containsAttribute("council")) {
             model.addAttribute("council", new Council());
@@ -69,7 +70,7 @@ public class CouncilController {
         if (!councilList.isEmpty()) {
             model.addAttribute("council", councilList.peekLast());
         }
-        return "admin/confirm-new-details";
+        return "admin/change-council-details";
     }
 
     // Retrieve council details from an existing record in the database and display them on the edit-details form
@@ -107,7 +108,7 @@ public class CouncilController {
 
     // Collect data from add-new-council form and add to CouncilList and then redirect to confirm-new-details
 
-    @PostMapping("/add-new-council")
+    @PostMapping("admin/add-new-council")
     public String placeNewCouncilIntoSession(@Valid @ModelAttribute Council council,
                                              BindingResult bindingResult,
                                              @ModelAttribute CouncilList councilList,
@@ -127,16 +128,17 @@ public class CouncilController {
     @PostMapping("/admin/confirm-new-details")
     public String routeConfirmationPage(@RequestParam(name = "confirmation-page-button") String button,
                                           @ModelAttribute("councilList") CouncilList councilList,
-                                          Model model) {
+                                          Model model,
+                                        RedirectAttributes attributes) {
 
         Council council = councilList.peekLast();
         String page = "";
 
-        if (button.equals("Submit")) {
+        if (button.equals("Enter details")) {
             service.save(council);
-            model.addAttribute("action", "add");
+            attributes.addFlashAttribute("flash", new FlashMessage("Council details added", FlashMessage.Status.SUCCESS));
             model.addAttribute("council", council);
-            page = "admin/success";
+            page = "redirect:/home";
         }
 
         else if (button.equals("Change details")) {
@@ -162,15 +164,14 @@ public class CouncilController {
     public String routeDeletePage(@PathVariable("id") Long id,
                                     @RequestParam(name = "confirm-delete-button") String button,
                                     @ModelAttribute CouncilList councilList,
-                                    Model model) {
+                                    RedirectAttributes attributes) {
 
         String page = "";
 
         if (button.equals("Submit")) {
             service.delete(id);
-            model.addAttribute("action", "delete");
-            model.addAttribute("council", councilList.peekLast());
-            page = "admin/success";
+            attributes.addFlashAttribute("flash", new FlashMessage("Council details deleted", FlashMessage.Status.SUCCESS));
+            page = "redirect:/home";
         }
 
         else if (button.equals("Go back")) {

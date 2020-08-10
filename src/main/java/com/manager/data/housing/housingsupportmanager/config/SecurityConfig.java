@@ -1,5 +1,6 @@
 package com.manager.data.housing.housingsupportmanager.config;
 
+import com.manager.data.housing.housingsupportmanager.FlashMessage;
 import com.manager.data.housing.housingsupportmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,9 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
 
         //Always allow access to assets
-//        web.ignoring().antMatchers("src/main/resources/static/**");
         web.ignoring().antMatchers("../resources/static/assets/**");
-        web.ignoring().antMatchers("../resources/static/stylesheets/**");
         web.ignoring().antMatchers("../resources/static/stylesheets/**");
     }
 
@@ -41,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // Ensure all requests have admin role
         http
                 .authorizeRequests()
-                    .anyRequest().hasRole("ADMIN")
+                    .antMatchers("/admin/**").hasRole("ADMIN")
                     .and()
                 .formLogin()
                     .loginPage("/sign-in")
@@ -51,17 +50,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .logout()
                     .permitAll()
-                    .logoutSuccessUrl("/sign-in");
+                    .logoutSuccessUrl("/home");
     }
 
     public AuthenticationSuccessHandler loginSuccessHandler() {
-        return (request, response, authentication) -> response.sendRedirect("./home");
+        return (request, response, authentication) ->
+                response.sendRedirect("./home");
     }
 
     public AuthenticationFailureHandler loginFailureHandler() {
         return (request, response, authentication) -> {
             // Display message when credentials are incorrect - also need to add to template
-//            request.getSession().setAttribute("flash", new FlashMessage());
+            request.getSession().setAttribute("flash", new FlashMessage("Please enter a valid username and password", FlashMessage.Status.FAILURE));
             response.sendRedirect("./sign-in");
         };
     }

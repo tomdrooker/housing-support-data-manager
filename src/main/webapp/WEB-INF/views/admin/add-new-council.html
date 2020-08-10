@@ -3,6 +3,7 @@
 <html lang="en">
 <head th:insert="fragments/fragments :: head">
     <title>Enter council details</title>
+    <link rel="stylesheet" href="../stylesheets/govuk-frontend-3.8.0.min.css">
 </head>
 <body class="govuk-template__body">
 
@@ -15,7 +16,7 @@
             <div class="govuk-grid-column-two-thirds">
 
 
-    <form class="govuk-form-group" th:action="@{/add-new-council}" th:object="${council}" method="post">
+    <form class="govuk-form-group" th:action="@{/admin/add-new-council}" th:object="${council}" method="post">
 
         <fieldset class="govuk-fieldset">
 

@@ -2,7 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head th:insert="fragments/fragments :: head">
-    <title>Edit council details</title>
 </head>
 
 <body class="govuk-template__body">
@@ -34,18 +33,18 @@
         </fieldset>
 
         <div class="govuk-form-group">
-            <label for="name">Council name</label>
-            <input type="text" id="name" name="name" th:value="${council.getName()}"><br/>
+            <label class="govuk-label" for="name">Council name</label>
+            <input class="govuk-input govuk-!-width-three-quarters" type="text" id="name" name="name" th:value="${council.getName()}"><br/>
         </div>
 
         <div class="govuk-form-group">
-            <label for="phone">Phone number</label>
-            <input type="text" id="phone" name="phone" th:value="${council.getPhone()}"><br/>
+            <label class="govuk-label" for="phone">Phone number</label>
+            <input class="govuk-input govuk-!-width-three-quarters" type="text" id="phone" name="phone" th:value="${council.getPhone()}"><br/>
         </div>
 
         <div class="govuk-form-group govuk-!-padding-bottom-7">
-            <label for="email">Email address</label>
-            <input type="text" id="email" name="email" th:value="${council.getEmail()}"><br/>
+            <label class="govuk-label" for="email">Email address</label>
+            <input class="govuk-input govuk-!-width-three-quarters" type="text" id="email" name="email" th:value="${council.getEmail()}"><br/>
         </div>
 
         <input class="govuk-button" type="submit" value="Change details">

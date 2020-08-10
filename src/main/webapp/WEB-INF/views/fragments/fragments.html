@@ -2,34 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:fragment="head">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="./stylesheets/govuk-frontend-3.8.0.min.css">
+    <link rel="stylesheet" href="../stylesheets/govuk-frontend-3.8.0.min.css">
+    <link rel="stylesheet" href="../../stylesheets/govuk-frontend-3.8.0.min.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta charset="utf-8">
     <title>Get help with a housing problem from the council</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#0b0c0c">
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
     <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="/assets/images/favicon.ico" type="image/x-icon">
     <link rel="mask-icon" href="/assets/images/govuk-mask-icon.svg" color="#0b0c0c">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/govuk-apple-touch-icon-180x180.png">
     <link rel="apple-touch-icon" sizes="167x167" href="/assets/images/govuk-apple-touch-icon-167x167.png">
     <link rel="apple-touch-icon" sizes="152x152" href="/assets/images/govuk-apple-touch-icon-152x152.png">
     <link rel="apple-touch-icon" href="/assets/images/govuk-apple-touch-icon.png">
-
-    <!--[if !IE 8]><!-->
-    <link href="/govuk-frontend/govuk/all.css" rel="stylesheet">
-    <!--<![endif]-->
-
-    <!--[if IE 8]>
-    <link href="/govuk-frontend/all-ie8.css" rel="stylesheet">
-    <![endif]-->
-
-    <!--[if lt IE 9]>
-    <script src="/html5-shiv/html5shiv.js"></script>
-    <![endif]-->
-
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
 </head>
 
@@ -51,8 +38,23 @@
           </span>
                     </a>
                 </div>
+                    <form sec:authorize="isAuthenticated()" id="sign-out-form" th:action="@{/logout}" method="post">
+                        <button id="sign-out-button" type="submit">Sign out</button>
+                    </form>
+                </div>
             </div>
         </header>
+    </div>
+
+    <div th:fragment="flash-error" th:if="${flash != null}" class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2>
+        <div class="govuk-error-summary__body">
+            <p class="govuk-body" th:text="${flash.message}"></p>
+        </div>
+    </div>
+
+    <div th:fragment="flash-generic" th:if="${flash != null}">
+        <h3 class="govuk-heading-m" th:text="${flash.message}"></h3>
     </div>
 
         <footer th:fragment="footer" class="govuk-footer " role="contentinfo">
