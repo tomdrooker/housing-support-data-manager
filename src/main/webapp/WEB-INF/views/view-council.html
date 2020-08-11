@@ -20,18 +20,18 @@
                     <p class="govuk-body">You can apply for a one-off payment to help you if you are struggling with your rent.</p>
                     <p class="govuk-body">This is called a Discretionary Housing Payment.</p>
                     <p class="govuk-body">To qualify, you must already be getting housing benefit or the housing part of Universal Credit.</p>
-                    <p class="govuk-body"><a th:href="${council.getDhp()}">Apply on your council's website</a></p>
+                    <p class="govuk-body"><a th:href="${council.getDhp()}" target="_blank">Apply on your council's website</a></p>
 
                     <h2 class="govuk-heading-l">Apply for a council house</h2>
 
                     <p class="govuk-body">Anyone can apply for a council house from <span th:text="${council.getName()}"></span>. You do not need to be from the area of have family here.</p>
                     <p class="govuk-body">You will get priority if you:</p>
-                    <ul class="govuk-list">
+                    <ul class="govuk-list govuk-list--bullet">
                         <li>are already living here</li>
                         <li>have family living here</li>
                         <li>have a job here</li>
                     </ul>
-                    <p class="govuk-body">You can <a th:href="${council.getList()}">apply directly on your council's website</a> and look at their <a th:href="${council.getInfo()}">housing register information pack</a> if you need more help.</p>
+                    <p class="govuk-body">You can <a th:href="${council.getList()}" target="_blank">apply directly on your council's website</a> and look at their <a th:href="${council.getInfo()}" target="_blank">housing register information pack</a> if you need more help.</p>
 
                     <h2 class="govuk-heading-l">Help with homelessness</h2>
 

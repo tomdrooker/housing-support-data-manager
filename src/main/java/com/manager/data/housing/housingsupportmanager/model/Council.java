@@ -11,12 +11,19 @@ public class Council {
 
     @NotBlank(message="Enter a council name")
     private String name;
+    @NotBlank(message="Enter an address")
     private String address;
+    @NotBlank(message="Enter an email")
     private String email;
+    @NotBlank(message="Enter a phone number")
     private String phone;
+    @NotBlank(message="Enter a DHP URL")
     private String dhp;
+    @NotBlank(message="Enter a housing register application URL")
     private String list;
+    @NotBlank(message="Enter a housing register supporting information URL")
     private String info;
+
 
     public Council() {};
 

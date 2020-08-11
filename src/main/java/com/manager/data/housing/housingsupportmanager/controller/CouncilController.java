@@ -64,7 +64,7 @@ public class CouncilController {
 
     // Retrieve council details that have just been added and send them to the confirm-new-details page
 
-    @GetMapping("/admin/change-council-details")
+    @GetMapping("admin/change-council-details")
     public String displayChangeDetails(Model model,
                                        @ModelAttribute CouncilList councilList) {
         if (!councilList.isEmpty()) {

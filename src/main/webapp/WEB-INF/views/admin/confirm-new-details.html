@@ -25,11 +25,6 @@
                         </dt>
                         <dd class="govuk-summary-list__value" th:text="${council.getName()}">
                         </dd>
-                        <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="#">
-                                Change<span class="govuk-visually-hidden"> name</span>
-                            </a>
-                        </dd>
                     </div>
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
@@ -37,82 +32,53 @@
                         </dt>
                         <dd class="govuk-summary-list__value" th:text="${council.getPhone()}">
                         </dd>
-                        <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="#">
-                                Change<span class="govuk-visually-hidden"> phone number</span>
-                            </a>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Housing department's address
+                        </dt>
+                        <dd class="govuk-summary-list__value" th:text="${council.getAddress()}">
                         </dd>
                     </div>
-<!--                    <div class="govuk-summary-list__row">-->
-<!--                        <dt class="govuk-summary-list__key">-->
-<!--                            Housing department's address-->
-<!--                        </dt>-->
-<!--                        <dd class="govuk-summary-list__value" th:text="${council.getAddress()()}">-->
-<!--                        </dd>-->
-<!--                        <dd class="govuk-summary-list__actions">-->
-<!--                            <a class="govuk-link" href="#">-->
-<!--                                Change<span class="govuk-visually-hidden"> address</span>-->
-<!--                            </a>-->
-<!--                        </dd>-->
-<!--                    </div>-->
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             Housing department's email address
                         </dt>
                         <dd class="govuk-summary-list__value" th:text="${council.getEmail()}">
                         </dd>
-                        <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="#">
-                                Change<span class="govuk-visually-hidden"> email</span>
-                            </a>
+                    </div>
+                </dl>
+
+                <h2 class="govuk-heading-m">Housing help details</h2>
+
+                <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Discretionary Housing Payment application URL
+                        </dt>
+                        <dd class="govuk-summary-list__value" th:text="${council.getDhp()}">
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Housing register application URL
+                        </dt>
+                        <dd class="govuk-summary-list__value" th:text="${council.getList()}">
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Housing register supporting information URL
+                        </dt>
+                        <dd class="govuk-summary-list__value" th:text="${council.getInfo()}">
                         </dd>
                     </div>
                 </dl>
 
-<!--                <h2 class="govuk-heading-m">Housing help details</h2>-->
-
-<!--                <dl class="govuk-summary-list govuk-!-margin-bottom-9">-->
-<!--                    <div class="govuk-summary-list__row">-->
-<!--                        <dt class="govuk-summary-list__key">-->
-<!--                            Discretionary Housing Payment application URL-->
-<!--                        </dt>-->
-<!--                        <dd class="govuk-summary-list__value" th:text="${council.getDhp()()}">-->
-<!--                        </dd>-->
-<!--                        <dd class="govuk-summary-list__actions">-->
-<!--                            <a class="govuk-link" href="#">-->
-<!--                                Change<span class="govuk-visually-hidden"> Discretionary Housing Payment application URL</span>-->
-<!--                            </a>-->
-<!--                        </dd>-->
-<!--                    </div>-->
-<!--                    <div class="govuk-summary-list__row">-->
-<!--                        <dt class="govuk-summary-list__key">-->
-<!--                            Housing register application URL-->
-<!--                        </dt>-->
-<!--                        <dd class="govuk-summary-list__value" th:text="${council.getList()()}">-->
-<!--                        </dd>-->
-<!--                        <dd class="govuk-summary-list__actions">-->
-<!--                            <a class="govuk-link" href="#">-->
-<!--                                Change<span class="govuk-visually-hidden"> housing register application URL</span>-->
-<!--                            </a>-->
-<!--                        </dd>-->
-<!--                    </div>-->
-<!--                    <div class="govuk-summary-list__row">-->
-<!--                        <dt class="govuk-summary-list__key">-->
-<!--                            Housing register supporting information URL-->
-<!--                        </dt>-->
-<!--                        <dd class="govuk-summary-list__value" th:text="${council.getInfo()()}">-->
-<!--                        </dd>-->
-<!--                        <dd class="govuk-summary-list__actions">-->
-<!--                            <a class="govuk-link" href="#">-->
-<!--                                Change<span class="govuk-visually-hidden"> housing register supporting information URL</span>-->
-<!--                            </a>-->
-<!--                        </dd>-->
-<!--                    </div>-->
-<!--                </dl>-->
-
                 <form th:action="@{/admin/confirm-new-details}" method="post">
 
                     <input class="govuk-button" type="submit" name="confirmation-page-button" value="Enter details">
+                    <input class="govuk-button govuk-button--secondary" type="submit" name="confirmation-page-button" value="Change details">
 
                 </form>
 
