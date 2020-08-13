@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -37,17 +38,6 @@ public class CouncilController {
         }
 
         return "admin/add-new-council";
-    }
-
-    // Display success page when council added successfully - requires an action attribute
-
-    @GetMapping("admin/success")
-    public String displaySuccess(Model model,
-                                 @ModelAttribute CouncilList councilList) {
-        if (!councilList.isEmpty()) {
-            model.addAttribute("council", councilList.peekLast());
-        }
-        return "admin/success";
     }
 
     // Retrieve council details that have just been added from CouncilList and send them for use on confirm-new-details page
@@ -127,12 +117,14 @@ public class CouncilController {
 
     @PostMapping("/admin/confirm-new-details")
     public String routeConfirmationPage(@RequestParam(name = "confirmation-page-button") String button,
-                                          @ModelAttribute("councilList") CouncilList councilList,
-                                          Model model,
-                                        RedirectAttributes attributes) {
+                                        @ModelAttribute("councilList") CouncilList councilList,
+                                        Model model,
+                                        RedirectAttributes attributes,
+                                        HttpServletRequest request) {
 
         Council council = councilList.peekLast();
         String page = "";
+        String referer = request.getHeader("Referer");
 
         if (button.equals("Enter details")) {
             service.save(council);
@@ -142,8 +134,16 @@ public class CouncilController {
         }
 
         else if (button.equals("Change details")) {
-            model.addAttribute("council", council);
-            page = "admin/change-council-details";
+            if (referer.contains("confirm-new-details")) {
+                model.addAttribute("council", council);
+                page = "redirect:/admin/edit-council-details/" + council.getId(); // just changed change-council-details to edit-council-details
+            }
+
+            else {
+                model.addAttribute("council", council);
+                page = "redirect:/admin/change-council-details"; // just changed change-council-details to edit-council-details
+            }
+
         }
 
         return page;
@@ -152,9 +152,9 @@ public class CouncilController {
 
     @PostMapping("/edit-council-details/{id}")
     public RedirectView handleEditCouncilDetails(@PathVariable("id") int id,
-                                           @ModelAttribute Council council,
-                                           @ModelAttribute CouncilList councilList,
-                                           RedirectAttributes attributes) {
+                                                 @ModelAttribute Council council,
+                                                 @ModelAttribute CouncilList councilList,
+                                                 RedirectAttributes attributes) {
         councilList.add(council);
         attributes.addFlashAttribute("councilList", councilList);
         return new RedirectView("./../admin/confirm-new-details");
