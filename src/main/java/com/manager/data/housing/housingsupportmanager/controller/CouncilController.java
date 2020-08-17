@@ -52,6 +52,17 @@ public class CouncilController {
         return "admin/confirm-new-details";
     }
 
+    // Retrieve amended council details and display them on the page
+
+    @GetMapping("admin/confirm-amended-details")
+    public String displayConfirmAmendedDetails(Model model,
+                                        @ModelAttribute CouncilList councilList) {
+        if (!councilList.isEmpty()) {
+            model.addAttribute("council", councilList.peekLast());
+        }
+        return "admin/confirm-amended-details";
+    }
+
     // Retrieve council details that have just been added and send them to the confirm-new-details page
 
     @GetMapping("admin/change-council-details")
@@ -124,7 +135,6 @@ public class CouncilController {
 
         Council council = councilList.peekLast();
         String page = "";
-        String referer = request.getHeader("Referer");
 
         if (button.equals("Enter details")) {
             service.save(council);
@@ -134,16 +144,34 @@ public class CouncilController {
         }
 
         else if (button.equals("Change details")) {
-            if (referer.contains("confirm-new-details")) {
-                model.addAttribute("council", council);
-                page = "redirect:/admin/edit-council-details/" + council.getId(); // just changed change-council-details to edit-council-details
-            }
+            model.addAttribute("council", council);
+            page = "redirect:/admin/change-council-details";
+        }
 
-            else {
-                model.addAttribute("council", council);
-                page = "redirect:/admin/change-council-details"; // just changed change-council-details to edit-council-details
-            }
+        return page;
 
+    }
+
+    @PostMapping("/admin/confirm-amended-details")
+    public String routeAmendedConfirmationPage(@RequestParam(name = "confirmation-page-button") String button,
+                                        @ModelAttribute("councilList") CouncilList councilList,
+                                        Model model,
+                                        RedirectAttributes attributes,
+                                        HttpServletRequest request) {
+
+        Council council = councilList.peekLast();
+        String page = "";
+
+        if (button.equals("Enter details")) {
+            service.save(council);
+            attributes.addFlashAttribute("flash", new FlashMessage("Council details updated", FlashMessage.Status.SUCCESS));
+            model.addAttribute("council", council);
+            page = "redirect:/home";
+        }
+
+        else if (button.equals("Change details")) {
+            model.addAttribute("council", council);
+            page = "redirect:/admin/edit-council-details/" + council.getId();
         }
 
         return page;
@@ -157,7 +185,7 @@ public class CouncilController {
                                                  RedirectAttributes attributes) {
         councilList.add(council);
         attributes.addFlashAttribute("councilList", councilList);
-        return new RedirectView("./../admin/confirm-new-details");
+        return new RedirectView("./../admin/confirm-amended-details");
     }
 
     @PostMapping("/view-council/delete-council/{id}")

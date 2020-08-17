@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.DefaultSavedRequest;
 
 @Configuration
 @EnableWebSecurity
@@ -55,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public AuthenticationSuccessHandler loginSuccessHandler() {
         return (request, response, authentication) ->
-                response.sendRedirect("./home");
+                response.sendRedirect(((DefaultSavedRequest)request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST")).getRequestURI());
     }
 
     public AuthenticationFailureHandler loginFailureHandler() {
