@@ -18,10 +18,15 @@ class CouncilRepositoryTest {
 
     @Test
     void testListAll() {
-        Council sheffieldCouncil = new Council();
-        sheffieldCouncil.setName("Sheffield City Council");
-        sheffieldCouncil.setId(1L);
-        councilRepository.save(sheffieldCouncil);
+        Council council = new Council();
+        council.setName("Sheffield City Council");
+        council.setAddress("1 main street");
+        council.setEmail("housing@sheffield.gov.uk");
+        council.setPhone("0114 2345678");
+        council.setDhp("http://www.dhp.co.uk");
+        council.setList("http://www.list.co.uk");
+        council.setInfo("http://www.info.co.uk");
+        councilRepository.save(council);
 
         List<Council> foundCouncils = councilRepository.findAll();
 

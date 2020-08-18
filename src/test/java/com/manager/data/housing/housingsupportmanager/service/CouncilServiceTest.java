@@ -1,7 +1,6 @@
 package com.manager.data.housing.housingsupportmanager.service;
 
 import com.manager.data.housing.housingsupportmanager.model.Council;
-import com.manager.data.housing.housingsupportmanager.service.CouncilService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
