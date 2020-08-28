@@ -28,4 +28,5 @@ class HomeControllerTest {
                 .andExpect(model().attributeExists("councils"))
                 .andExpect(view().name("home"));
     }
+
 }
