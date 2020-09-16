@@ -1,11 +1,8 @@
 package com.manager.data.housing.housingsupportmanager.model;
-
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-@Entity(name = "councils")
+@Entity(name = "council")
 public class Council {
 
     @Id
@@ -14,16 +11,19 @@ public class Council {
 
     @NotBlank(message="Enter a council name")
     private String name;
+    @NotBlank(message="Enter an address")
     private String address;
+    @NotBlank(message="Enter an email")
     private String email;
+    @NotBlank(message="Enter a phone number")
     private String phone;
-    private String advice;
+    @NotBlank(message="Enter a DHP URL")
     private String dhp;
-    private String lwa;
-    private String hours;
-    @Lob
-    @Type(type="org.hibernate.type.BinaryType")
-    private byte[] photo;
+    @NotBlank(message="Enter a housing register application URL")
+    private String list;
+    @NotBlank(message="Enter a housing register supporting information URL")
+    private String info;
+
 
     public Council() {};
 
@@ -67,14 +67,6 @@ public class Council {
         this.phone = phone;
     }
 
-    public String getAdvice() {
-        return advice;
-    }
-
-    public void setAdvice(String advice) {
-        this.advice = advice;
-    }
-
     public String getDhp() {
         return dhp;
     }
@@ -83,27 +75,20 @@ public class Council {
         this.dhp = dhp;
     }
 
-    public String getLwa() {
-        return lwa;
+    public String getList() {
+        return list;
     }
 
-    public void setLwa(String lwa) {
-        this.lwa = lwa;
+    public void setList(String list) {
+        this.list =list;
     }
 
-    public String getHours() {
-        return hours;
+    public String getInfo() {
+        return info;
     }
 
-    public void setHours(String hours) {
-        this.hours = hours;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
-    public byte[] getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
-    }
 }

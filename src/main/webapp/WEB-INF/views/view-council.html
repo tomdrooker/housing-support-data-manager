@@ -1,20 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head th:insert="fragments/fragments :: head">
-    <title th:text="council.getCouncilName()"></title>
-</head>
-<body>
+<head th:insert="fragments/fragments :: head"></head>
+
+<body class="govuk-template__body">
 
     <header th:insert="fragments/fragments :: header"></header>
 
-    <h1 th:text="${council.getName()}"></h1>
+    <div class="govuk-width-container">
+        <main class="govuk-main-wrapper" id="main-content" role="main">
 
-    <p th:text="${council.getPhone()}"></p>
-    <p th:text="${council.getEmail()}"></p>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
 
-    <a th:href="@{'edit-council-details/' + ${council.getId()}}">Edit council details</a>
-    <a th:href="@{'confirm-delete-council/' + ${council.getId()}}">Delete council</a>
+                    <h1 class="govuk-heading-xl">Get help with housing from <span th:text="${council.getName()}"></span></h1>
+
+                    <h2 class="govuk-heading-l">If you are renting</h2>
+
+                    <p class="govuk-body">You can apply for a one-off payment to help you if you are struggling with your rent.</p>
+                    <p class="govuk-body">This is called a Discretionary Housing Payment.</p>
+                    <p class="govuk-body">To qualify, you must already be getting housing benefit or the housing part of Universal Credit.</p>
+                    <p class="govuk-body"><a th:href="${council.getDhp()}" target="_blank">Apply on your council's website</a></p>
+
+                    <h2 class="govuk-heading-l">Apply for a council house</h2>
+
+                    <p class="govuk-body">Anyone can apply for a council house from <span th:text="${council.getName()}"></span>. You do not need to be from the area of have family here.</p>
+                    <p class="govuk-body">You will get priority if you:</p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>are already living here</li>
+                        <li>have family living here</li>
+                        <li>have a job here</li>
+                    </ul>
+                    <p class="govuk-body">You can <a th:href="${council.getList()}" target="_blank">apply directly on your council's website</a> and look at their <a th:href="${council.getInfo()}" target="_blank">housing register information pack</a> if you need more help.</p>
+
+                    <h2 class="govuk-heading-l">Help with homelessness</h2>
+
+                    <p class="govuk-body">The council must help you if you are homeless now or might be in the next 56 days.</p>
+                    <p class="govuk-body">Depending on your circumstances, you could get some general advice, temporary accommodation or a longer-term place to stay.</p>
+
+                    <h4 class="govuk-heading-s">Go to the housing office</h4>
+
+                    <p class="govuk-body">It is best to go directly to the housing office and get there as early as you can. You may have to wait to be seen.</p>
+
+                    <p class="govuk-body" th:text="${council.getAddress()}"></p>
+
+                    <h4 class="govuk-heading-s"><strong>Ring your council</strong></h4>
+                    <p class="govuk-body" th:text="${council.getPhone()}"></p>
+
+                    <h4 class="govuk-heading-s">Email your council</h4>
+                    <p class="govuk-body" th:text="${council.getEmail()}"></p>
+
+                    <span class="govuk-body-s"><a th:href="@{'/admin/edit-council-details/' + ${council.getId()}}">Edit council details</a></span>
+                    <span class="govuk-body-s"><a th:href="@{'/admin/confirm-delete-council/' + ${council.getId()}}">Delete council</a></span>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
 
     <footer th:insert="fragments/fragments :: footer"></footer>
 

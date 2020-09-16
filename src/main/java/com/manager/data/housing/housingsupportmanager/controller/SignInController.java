@@ -3,31 +3,28 @@ package com.manager.data.housing.housingsupportmanager.controller;
 import com.manager.data.housing.housingsupportmanager.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class SignInController {
 
     @GetMapping("/sign-in")
-    public String displaySignIn(Model model) {
+    public String displaySignIn(Model model,
+                                HttpServletRequest request) {
         model.addAttribute("user", new User());
+
+        try {
+            Object flash = request.getSession().getAttribute("flash");
+            model.addAttribute("flash", flash);
+            request.getSession().removeAttribute("flash");
+        }
+
+        catch (Exception exception) {
+            System.out.println(exception);
+        }
+
         return "sign-in";
-    }
-
-    @PostMapping("/sign-in")
-    public String doSignIn(@Valid @ModelAttribute(name="user") User user,
-                           BindingResult bindingResult) {
-
-            if (bindingResult.hasErrors()) {
-                return "sign-in";
-            }
-
-            return "home";
-
     }
 
 }

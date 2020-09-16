@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head th:insert="fragments/fragments :: head">
+    <title>Are you sure you want to delete this council?</title>
+    <link rel="stylesheet" href="../stylesheets/govuk-frontend-3.8.0.min.css">
+</head>
+<body class="govuk-template__body">
+
+    <header th:insert="fragments/fragments :: header"></header>
+
+    <div class="govuk-width-container">
+        <main class="govuk-main-wrapper " id="main-content" role="main" style="margin-bottom: 200px">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">Are you sure you want to delete <span th:text="${council.getName()}"></span>?</h1>
+
+    <form th:action="@{'/view-council/delete-council/' + ${council.getId()}}" method="post">
+
+        <div class="govuk-radios govuk-radios--inline">
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="delete" name="confirm-delete-button" type="radio" value="Submit">
+                <label class="govuk-label govuk-radios__label" for="delete">
+                    Yes
+                </label>
+            </div>
+            <div class="govuk-radios__item govuk-!-padding-bottom-7">
+                <input class="govuk-radios__input" id="delete-2" name="confirm-delete-button" type="radio" value="Go back">
+                <label class="govuk-label govuk-radios__label" for="delete-2">
+                    No
+                </label>
+            </div>
+        </div>
+
+        <input class="govuk-button" type="submit" value="Continue">
+
+    </form>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer th:insert="fragments/fragments :: footer"></footer>
+
+</body>
+</html>

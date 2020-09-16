@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head th:insert="fragments/fragments :: head">
+</head>
+
+<body class="govuk-template__body">
+
+    <header th:insert="fragments/fragments :: header"></header>
+
+    <div class="govuk-width-container">
+        <main class="govuk-main-wrapper" id="main-content" role="main">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+
+    <form class="govuk-form-group" th:action="@{'/edit-council-details/' + ${council.getId()}}" th:object="${council}" method="post">
+
+        <fieldset class="govuk-fieldset">
+
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+
+                <h1 class="govuk-fieldset__heading">
+
+
+                    <span class="govuk-caption-l">Change details</span>Council information
+
+
+                </h1>
+
+            </legend>
+
+        </fieldset>
+
+        <div id="contact-details">
+
+            <h2 class="govuk-heading-m">Contact details</h2>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="name">Council name</label>
+                <input class="govuk-input govuk-!-width-three-quarters" type="text" id="name" name="name" th:field="*{name}"><br/>
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="phone">Phone number</label>
+                <input class="govuk-input govuk-!-width-three-quarters" type="text" id="phone" name="phone" th:field="*{phone}"><br/>
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="address">Address</label>
+                <input class="govuk-input govuk-!-width-three-quarters" type="text" id="address" name="address" th:field="*{address}"><br/>
+            </div>
+
+            <div class="govuk-form-group govuk-!-padding-bottom-7">
+                <label class="govuk-label" for="email">Email address</label>
+                <input class="govuk-input govuk-!-width-three-quarters" type="text" id="email" name="email" th:field="*{email}"><br/>
+            </div>
+
+        </div>
+
+        <div id="housing-help">
+
+            <h2 class="govuk-heading-m">Housing help information</h2>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="dhp">URL of council Discretionary Housing Payment application</label>
+                <input class="govuk-input govuk-!-width-three-quarters" type="text" id="dhp" name="dhp" th:field="*{dhp}"><br/>
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="list">Housing register application URL</label>
+                <input class="govuk-input govuk-!-width-three-quarters" type="text" id="list" name="list" th:field="*{list}"><br/>
+            </div>
+
+            <div class="govuk-form-group govuk-!-padding-bottom-7">
+                <label class="govuk-label" for="info">URL to housing register application supporting information</label>
+                <input class="govuk-input govuk-!-width-three-quarters" type="text" id="info" name="info" th:field="*{info}"><br/>
+            </div>
+
+        </div>
+
+        <input class="govuk-button" type="submit" value="Change details">
+
+    </form>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <footer th:insert="fragments/fragments :: footer"></footer>
+
+</body>
+
+</html>
