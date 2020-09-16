@@ -21,7 +21,7 @@ public class SignInController {
         }
 
         catch (Exception exception) {
-            // flash attribute does not exist - do nothing and continue
+            System.out.println(exception);
         }
 
         return "sign-in";
