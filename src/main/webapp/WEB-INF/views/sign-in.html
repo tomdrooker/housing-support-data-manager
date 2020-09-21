@@ -11,25 +11,27 @@
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-two-thirds">
 
-    <h1 class="govuk-heading-xl">Sign in</h1>
+                    <a href="#" class="govuk-back-link">Back</a>
 
-                <div th:insert="fragments/fragments :: flash-error"></div>
+                    <h1 class="govuk-heading-xl">Sign in</h1>
 
-    <p class="govuk-body">You must enter a username and password to add or update information.</p>
+                    <div th:insert="fragments/fragments :: flash-error"></div>
 
-    <form class="govuk-form-group" th:action="@{/sign-in}" th:object="${user}" method="post">
+                    <p class="govuk-body">You must enter a username and password to add or update information.</p>
 
-        <div class="govuk-form-group">
-            <label class="govuk-label" for="username"><strong>Username</strong></label>
-            <input class="govuk-input govuk-!-width-three-quarters" type="text" id="username" name="username" />
-        </div>
+                    <form class="govuk-form-group" th:action="@{/sign-in}" th:object="${user}" method="post">
 
-        <div class="govuk-form-group govuk-!-padding-bottom-7">
-            <label class="govuk-label" for="password"><strong>Password</strong></label>
-            <input class="govuk-input govuk-!-width-three-quarters" type="password" id="password" name="password" />
-        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label" for="username"><strong>Username</strong></label>
+                            <input class="govuk-input govuk-!-width-three-quarters" type="text" id="username" name="username" />
+                        </div>
 
-        <input class="govuk-button" type="submit" value="Sign in">
+                        <div class="govuk-form-group govuk-!-padding-bottom-7">
+                            <label class="govuk-label" for="password"><strong>Password</strong></label>
+                            <input class="govuk-input govuk-!-width-three-quarters" type="password" id="password" name="password" />
+                        </div>
+
+                        <input class="govuk-button" type="submit" value="Sign in">
 
                 </div>
             </div>
@@ -41,6 +43,8 @@
     </div>
 
     <footer th:insert="fragments/fragments :: footer"></footer>
+
+    <script type="text/javascript" src="./javascript/script.js"></script>
 
 </body>
 </html>

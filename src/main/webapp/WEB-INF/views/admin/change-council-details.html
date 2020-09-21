@@ -16,6 +16,8 @@
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-two-thirds">
 
+                    <a href="#" class="govuk-back-link">Back</a>
+
     <form class="govuk-form-group" th:action="@{/admin/add-new-council}" th:object="${council}" method="post">
 
         <fieldset class="govuk-fieldset">
@@ -92,6 +94,8 @@
     </div>
 
     <footer th:insert="fragments/fragments :: footer"></footer>
+
+    <script type="text/javascript" src="../javascript/script.js"></script>
 
 </body>
 

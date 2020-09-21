@@ -15,7 +15,7 @@ public class HomeController {
     @Autowired
     private CouncilService service;
 
-    @GetMapping("/home")
+    @GetMapping({"/", "/home"})
     public String displayHomePage(Model model) {
         List<Council> councils = service.listAll();
         model.addAttribute("councils", councils);
