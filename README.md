@@ -1,6 +1,6 @@
 <h1>Get help with a housing problem</h1>
 
-Application created during my QA apprenticeship in software engineering. It can be viewed <a href="ec2-18-222-91-216.us-east-2.compute.amazonaws.com" target="_blank">here</a>.
+Application created during my QA apprenticeship in software engineering. It can be viewed <a href="ec2-18-222-91-216.us-east-2.compute.amazonaws.com">here</a>.
 
 <h2>Access</h2>
 
